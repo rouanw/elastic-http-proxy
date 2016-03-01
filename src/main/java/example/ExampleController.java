@@ -1,5 +1,6 @@
 package example;
 
+import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,10 @@ public class ExampleController {
         this.restTemplate = new RestTemplate();
     }
 
+    @ApiOperation(value = "getExample")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = String.class),
+            @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(method = RequestMethod.GET, produces={"application/json"})
     public String list() {
         ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:9200/example/_search", String.class);
